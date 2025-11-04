@@ -16,14 +16,19 @@ const client = new Client({
 
 // QR Code Generation
 client.on('qr', (qr) => {
-    console.log('🔄 Scan this QR code with WhatsApp:');
+    console.log('\n🔄 SCAN THIS QR CODE WITH YOUR WHATSAPP:');
+    console.log('=========================================');
     qrcode.generate(qr, { small: true });
-    console.log('📱 WhatsApp → Linked Devices → Scan QR Code');
+    console.log('\n📱 INSTRUCTIONS:');
+    console.log('1. Open WhatsApp on your phone');
+    console.log('2. Tap Menu → Linked Devices');
+    console.log('3. Tap "Link a Device"');
+    console.log('4. Scan the QR code above');
+    console.log('=========================================\n');
 });
 
 client.on('ready', () => {
     console.log('✅ WhatsApp Bot is READY and ONLINE!');
-    console.log('🤖 Bot is running 24/7 on GitHub Codespaces');
 });
 
 client.on('authenticated', () => {
@@ -41,45 +46,23 @@ client.on('message', async (message) => {
             
             switch (command) {
                 case '.movie':
-                    if (!query) {
-                        response = '🎬 Usage: .movie <query>\nExample: .movie avengers';
-                    } else {
-                        response = `🎬 Movie Search: "${query}"\n🔗 https://www.themoviedb.org/search?query=${encodeURIComponent(query)}`;
-                    }
+                    response = query ? `🎬 Movie Search: "${query}"\n🔗 https://www.themoviedb.org/search?query=${encodeURIComponent(query)}` : '🎬 Usage: .movie <query>';
                     break;
-                    
                 case '.ping':
-                    response = `🏓 Bot is active!\n\n📢 WhatsApp Channel:\nhttps://whatsapp.com/channel/0029Vb71mgIElaglZCU0je0x\n\nType .menu for all commands`;
+                    response = '🏓 Bot is active! Type .menu for commands';
                     break;
-                    
                 case '.tt':
-                    if (!query) {
-                        response = '📱 Usage: .tt <query>\nExample: .tt dance tutorial';
-                    } else {
-                        response = `📱 TikTok Search: "${query}"\n🔗 https://www.tiktok.com/search?q=${encodeURIComponent(query)}`;
-                    }
+                    response = query ? `📱 TikTok Search: "${query}"\n🔗 https://www.tiktok.com/search?q=${encodeURIComponent(query)}` : '📱 Usage: .tt <query>';
                     break;
-                    
                 case '.gg':
-                    if (!query) {
-                        response = '🔍 Usage: .gg <query>\nExample: .gg weather today';
-                    } else {
-                        response = `🔍 Google Search: "${query}"\n🔗 https://www.google.com/search?q=${encodeURIComponent(query)}`;
-                    }
+                    response = query ? `🔍 Google Search: "${query}"\n🔗 https://www.google.com/search?q=${encodeURIComponent(query)}` : '🔍 Usage: .gg <query>';
                     break;
-                    
                 case '.yt':
-                    if (!query) {
-                        response = '📺 Usage: .yt <query>\nExample: .yt funny cats';
-                    } else {
-                        response = `📺 YouTube Search: "${query}"\n🔗 https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
-                    }
+                    response = query ? `📺 YouTube Search: "${query}"\n🔗 https://www.youtube.com/results?search_query=${encodeURIComponent(query)}` : '📺 Usage: .yt <query>';
                     break;
-                    
                 case '.menu':
-                    response = `🤖 BOT MENU 🤖\n\n🎬 .movie <query> - Search movies\n📺 .yt <query> - Search YouTube\n🔍 .gg <query> - Search Google\n📱 .tt <query> - Search TikTok\n🏓 .ping - Bot status\n📖 .menu - Show this menu`;
+                    response = `🤖 BOT MENU\n🎬 .movie <query> - Search movies\n📺 .yt <query> - Search YouTube\n🔍 .gg <query> - Search Google\n📱 .tt <query> - Search TikTok\n🏓 .ping - Bot status`;
                     break;
-                    
                 default:
                     response = '❌ Unknown command. Type .menu for available commands.';
             }
@@ -99,7 +82,7 @@ app.get('/', (req, res) => {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>WhatsApp Bot - GitHub Codespaces</title>
+            <title>WhatsApp Bot</title>
             <style>
                 body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
                 .status { background: #4CD964; color: white; padding: 20px; border-radius: 10px; }
@@ -108,15 +91,15 @@ app.get('/', (req, res) => {
         <body>
             <h1>🤖 WhatsApp Bot</h1>
             <div class="status">
-                <h2>✅ Bot is Running on GitHub Codespaces</h2>
-                <p>Check your terminal for QR code to scan with WhatsApp</p>
+                <h2>✅ Bot is Running</h2>
+                <p>Check terminal for QR code</p>
             </div>
         </body>
         </html>
     `);
 });
 
-// Initialize
+// Initialize WhatsApp
 client.initialize();
 
 // Start web server
